@@ -56,7 +56,7 @@ def find_streak(list, needle, n):
             index = index + 1
         
         # devolvemos el resultado de comparar el contador con n SIEMPRE Y CUANDO  estemos en racha
-        return n >= count and streak
+        return count >= n and streak
     else:
         # para valores de n < 0, no tiene sentido
         return False
