@@ -1,3 +1,6 @@
+import re
+
+
 def find_one(list, needle):
     """
     Devuelve True si encuentra una o más ocurencias de needle en list
@@ -61,4 +64,66 @@ def find_streak(list, needle, n):
         # para valores de n < 0, no tiene sentido
         return False
     
+def first_elements(list_of_lists):
+    """
+    Recibe una lista de listas y devuelve una lista
+    con los primeros elementos de la original
+    """
+    return nth_elements(list_of_lists, 0)
+
+def nth_elements(list_of_lists, n):
+    """
+    Recibe una lista de listas y devuelve una lista
+    con los enésimos elementos de la original
+    """
+    result = []
+    for list in list_of_lists:
+        result.append(list[n])
+    return result
+
+def transpose(matrix):
+    """
+    Recibe una matriz y devuelve su transpuesta
+    """
+    # Creo un amatriz vacía y la llamo transp
+    transp = []
+    # Recorremos todas las columnas de la matriz original
+    for n in range(len(matrix[0])):
+        # extraigo los elementos enésimos y los encasqueto a transp
+        transp.append(nth_elements(matrix, n))
+    # devuelvo trnasp
+    return transp
+
+def displace(l, distance, filler=None):
+    if distance == 0:
+        return l
+    elif distance > 0:
+        filling = [filler] * distance
+        res = filling + l
+        res = res[:-distance]
+        return res
+    else:
+        filling = [filler] * abs(distance)
+        res = l + filling
+        res = res[abs(distance):]
+        return res
+
+def displace_matrix(m, filler=None):
+    # creamos una matriz vacía
+    d = []
+    # por cada calumna de la matriz original la desplazamos su índice -1
+    for i in range(len(m)):
+        # añadimos la columna desplazada a m
+        d.append(displace(m[i], i - 1, filler))
     
+    # devolvemos d
+    return d
+
+def reverse_list(l):
+    return list(reversed(l))
+
+def reverse_matrix(matrix):
+    rm = []
+    for col in matrix:
+        rm.append(reverse_list(col))
+    return rm
