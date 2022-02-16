@@ -24,6 +24,15 @@ class SquareBoard():
 
     def __len__(self):
         return len(self._columns)
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+        else:
+            return self._columns == other._columns
+
+    def __hash__(self):
+        return hash(self._columns)
     
     def is_full(self):
         """
@@ -40,6 +49,10 @@ class SquareBoard():
         lista de listas.
         """
         return list(map(lambda x: x._column, self._columns))
+
+    # Juega una ficha en una columna
+    def add(self, char, column):
+        self._columns[column].add(char)
 
     # Detectra victorias
     def is_victory(self, char):
