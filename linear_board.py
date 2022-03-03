@@ -30,6 +30,9 @@ class LinearBoard():
     def __hash__(self):
         return hash(self._column)
 
+    def __repr__(self):
+        return f'<{self.__class__}: {self._column}>'
+
         
     def add(self, char):
         """
