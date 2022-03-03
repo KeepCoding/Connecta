@@ -76,7 +76,10 @@ class Game():
 
 
     def _display_move(self, player):
-        pass
+        """
+        Print the board in its current state
+        """
+        print(self.board)
 
     def _display_board(self):
         pass
