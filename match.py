@@ -18,6 +18,21 @@ class Match:
     def get_player(self, char):
         return self._players[char]
 
+    
+    def get_winner(self, board):
+        """
+        Returns the winning player. If there's no winner, return None.
+        This doesn't mean it's a tie, the game might not be finished yet.
+        """
+        if board.is_victory('x') :
+            return self.get_player('x')
+        elif board.is_victory('o') :
+            return self.get_player('o')
+        else:
+            return None
+
+            
+
     def is_match_over(self):
         """
         Ask the user if it wants another match

@@ -66,7 +66,7 @@ class Game():
         """
         Game is over if there's a winner or there's a tie
         """
-        winner = self.match.get_winner()
+        winner = self.match.get_winner(self.board)
         if winner != None:
             return True # there is a winner
         elif self.board.is_full():
