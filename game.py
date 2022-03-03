@@ -71,8 +71,7 @@ class Game():
     def _display_board(self):
         pass
 
-    def _display_board(self):
-        pass
+    
     
 
     def _configure_by_user(self):
