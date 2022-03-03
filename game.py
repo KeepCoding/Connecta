@@ -39,6 +39,19 @@ class Game():
         # Pido al usuario valores deseados para match y tipo de partida
         self._configure_by_user()
         # Arranco el game loop
+        self._start_game_loop()
+
+    def _start_game_loop(self):
+        # bucle infinito
+            # obtengo el juagdor de turno
+            # le hago jugar
+            # muestro su jugada
+            # imprimo el tablero
+            # si el juego ha terminado,
+                # muestro resultado final
+                # salgo del bucle
+        pass
+
 
     def _configure_by_user(self):
         """
