@@ -43,13 +43,32 @@ class Game():
 
     def _start_game_loop(self):
         # bucle infinito
-            # obtengo el juagdor de turno
+        while True:
+            #obtengo el juagdor de turno
+            current_player = self.match.next_player
             # le hago jugar
+            current_player.play(self.board)
             # muestro su jugada
+            self._display_move(current_player)
             # imprimo el tablero
-            # si el juego ha terminado,
-                # muestro resultado final
-                # salgo del bucle
+            self._display_board()
+            #si el juego ha terminado,
+            if self._is_game_over():
+                # muestro el resultado final
+                self._display_result()
+                #salgo del bucle
+                break
+
+    def _display_result(self):
+        pass
+    
+    def _is_game_over(self):
+        pass
+
+    def _display_move(self, player):
+        pass
+
+    def _display_board(self):
         pass
 
 
