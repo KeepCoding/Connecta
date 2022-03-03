@@ -63,7 +63,17 @@ class Game():
         pass
     
     def _is_game_over(self):
-        pass
+        """
+        Game is over if there's a winner or there's a tie
+        """
+        winner = self.match.get_winner()
+        if winner != None:
+            return True # there is a winner
+        elif self.board.is_full():
+            return True # tie
+        else:
+            return False # the game is still on
+
 
     def _display_move(self, player):
         pass
