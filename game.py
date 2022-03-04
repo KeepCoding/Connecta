@@ -1,8 +1,10 @@
 
 import pyfiglet
-
+from beautifultable import BeautifulTable
+from settings import BOARD_LENGTH
 from square_board import SquareBoard
 from match import Match
+from list_utils import reverse_matrix
 from player import Player, HumanPlayer
 from enum import Enum, auto
 
@@ -88,8 +90,17 @@ class Game():
         Print the board in its current state
         """
         # obtener una matriz de caracteres a partir del tablero
+        matrix = self.board.as_matrix()
+        matrix = reverse_matrix(matrix)
+        
         # crear un atabla con beautifultable 
+        bt = BeautifulTable()
+        for col in matrix:
+            bt.columns.append(col)
+        bt.columns.header = [str(i) for i in range(BOARD_LENGTH)]
+
         # imprimirla
+        print(bt)
 
     def _configure_by_user(self):
         """
