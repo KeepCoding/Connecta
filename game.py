@@ -87,7 +87,9 @@ class Game():
         """
         Print the board in its current state
         """
-        print(self.board)
+        # obtener una matriz de caracteres a partir del tablero
+        # crear un atabla con beautifultable 
+        # imprimirla
 
     def _configure_by_user(self):
         """
