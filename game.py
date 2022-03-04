@@ -76,7 +76,7 @@ class Game():
 
 
     def _display_move(self, player):
-        pass
+        print(f'\n{player.name} ({player.char}) has moved in column #{player.last_move}\n')
 
     def _display_board(self):
         """
