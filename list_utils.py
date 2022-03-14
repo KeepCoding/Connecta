@@ -127,3 +127,66 @@ def reverse_matrix(matrix):
     for col in matrix:
         rm.append(reverse_list(col))
     return rm
+
+
+def all_same(l):
+    """
+    Devuelve True si todos los elemenmtos de la lista son iguales
+    o la lista está vacía
+    """
+    if l == []:
+        return True
+    else:
+        same = True
+        first = l[0]
+        for elt in l:
+            if elt != first:
+                same = False
+                break
+        return same 
+
+def collapse_list(l, empty = '.'):
+    """
+    Concatena todas las cadenas de la lista en una sola lista
+    """
+    collapsed = ''
+    for elt in l:
+        if elt == None:
+            collapsed = collapsed + empty
+        else:
+            collapsed = collapsed + elt
+    return collapsed
+
+def collapse_matrix(m, empty='.', fence = '|'):
+    """
+    Conatena todas las cadenas en una sola separada por |
+    """
+    collapsed = ''
+    for elt in m:
+        collapsed = collapsed + fence + collapse_list(elt, empty)
+    
+    return collapsed[1:]
+
+
+def replace_all_in_list(original, old, new):
+    """
+    Cambia todas las ocurrencias de old por new
+    """
+    result = []
+    for elt in original:
+        if elt == old:
+            result.append(new)
+        else:
+            result.append(elt)
+    return result
+
+def replace_all_in_matrix(original, old, new):
+    """
+    Aplica replace_all_in_list a todas las listas
+    """
+    result = []
+    for each_list in original:
+        result.append(replace_all_in_list(each_list, old, new))
+    return result
+
+    

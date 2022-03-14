@@ -1,6 +1,7 @@
 
 import pyfiglet
 from beautifultable import BeautifulTable
+from oracle import SmartOracle, BaseOracle
 from settings import BOARD_LENGTH
 from square_board import SquareBoard
 from match import Match
@@ -92,8 +93,8 @@ class Game():
         # obtener una matriz de caracteres a partir del tablero
         matrix = self.board.as_matrix()
         matrix = reverse_matrix(matrix)
-        
-        # crear un atabla con beautifultable 
+
+        # crear un atabla con beautifultable
         bt = BeautifulTable()
         for col in matrix:
             bt.columns.append(col)
@@ -110,21 +111,52 @@ class Game():
         # determino el tipo de partida (humano vs comp, comp vs comp)
         self.round_type = self._get_round_type()
 
+        # preguntamos nivel de dificultad
+        if self.round_type == RoundType.COMPUTER_VS_HUMAN:
+            self._difficulty_level = self._get_difficulty_level()
+
         # Creamos los dos jugadores
         self.match = self._make_match()
+
+    def _get_difficulty_level(self):
+        """
+        Pregunta al usuario cómo de listo quiere que sea su oponente
+        """
+        print("""
+        Chose your opponent, human:
+
+        1) Bender: for clowns and wimps
+        2) T-800: you may regret it
+        3) T-1000: Don't even think about it!
+        """)
+        while True:
+            response = input('Please type 1, 2 or 3: ').strip()
+            if response == '1':
+                level = DifficultyLevel.LOW
+                break
+            elif response == '2':
+                level = DifficultyLevel.MEDIUM
+                break
+            else:
+                level = DifficultyLevel.HIGH
+                break
+        return level
 
     def _make_match(self):
         """
         Player1 siempre será el ordeñador
         """
+        _levels = {DifficultyLevel.LOW: BaseOracle(),
+                   DifficultyLevel.MEDIUM: SmartOracle(), 
+                   DifficultyLevel.HIGH: SmartOracle()}
 
         if self.round_type == RoundType.COMPUTER_VS_COMPUTER:
             # ambos jugadores robóticos
-            player1 = Player('T-X')
-            player2 = Player('T-1000')
+            player1 = Player('T-X', oracle=SmartOracle())
+            player2 = Player('T-1000', oracle=SmartOracle())
         else:
             # humano contro ordenador
-            player1 = Player('T-800')
+            player1 = Player('T-800', oracle=_levels[self._difficulty_level])
             player2 = HumanPlayer(name=input('Enter your name, puny human: '))
 
         # creamos la partida
