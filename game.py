@@ -1,7 +1,7 @@
 
 import pyfiglet
 from beautifultable import BeautifulTable
-from oracle import SmartOracle, BaseOracle
+from oracle import SmartOracle, BaseOracle, LearningOracle
 from settings import BOARD_LENGTH
 from square_board import SquareBoard
 from match import Match
@@ -148,12 +148,12 @@ class Game():
         """
         _levels = {DifficultyLevel.LOW: BaseOracle(),
                    DifficultyLevel.MEDIUM: SmartOracle(), 
-                   DifficultyLevel.HIGH: SmartOracle()}
+                   DifficultyLevel.HIGH: LearningOracle()}
 
         if self.round_type == RoundType.COMPUTER_VS_COMPUTER:
             # ambos jugadores robóticos
-            player1 = Player('T-X', oracle=SmartOracle())
-            player2 = Player('T-1000', oracle=SmartOracle())
+            player1 = Player('T-X', oracle=LearningOracle())
+            player2 = Player('T-1000', oracle=LearningOracle())
         else:
             # humano contro ordenador
             player1 = Player('T-800', oracle=_levels[self._difficulty_level])
