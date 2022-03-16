@@ -6,7 +6,7 @@ from settings import BOARD_LENGTH
 from square_board import SquareBoard
 from match import Match
 from list_utils import reverse_matrix
-from player import Player, HumanPlayer
+from player import ReportingPlayer, HumanPlayer
 from enum import Enum, auto
 
 
@@ -25,7 +25,7 @@ class Game():
 
     def __init__(self,
                  round_type=RoundType.COMPUTER_VS_COMPUTER,
-                 match=Match(Player('Chip'), Player('Chop'))):
+                 match=Match(ReportingPlayer('Chip'), ReportingPlayer('Chop'))):
 
         # tablero vacío sobre el que vamos a jugar
         self.board = SquareBoard()
@@ -76,6 +76,8 @@ class Game():
         """
         winner = self.match.get_winner(self.board)
         if winner != None:
+            winner.on_win()
+            winner.opponent.on_lose()
             return True  # there is a winner
         elif self.board.is_full():
             return True  # tie
@@ -84,7 +86,7 @@ class Game():
 
     def _display_move(self, player):
         print(
-            f'\n{player.name} ({player.char}) has moved in column #{player.last_move}\n')
+            f'\n{player.name} ({player.char}) has moved in column #{player.last_moves[0].position}\n')
 
     def _display_board(self):
         """
@@ -152,11 +154,11 @@ class Game():
 
         if self.round_type == RoundType.COMPUTER_VS_COMPUTER:
             # ambos jugadores robóticos
-            player1 = Player('T-X', oracle=LearningOracle())
-            player2 = Player('T-1000', oracle=LearningOracle())
+            player1 = ReportingPlayer('T-X', oracle=LearningOracle())
+            player2 = ReportingPlayer('T-1000', oracle=LearningOracle())
         else:
             # humano contro ordenador
-            player1 = Player('T-800', oracle=_levels[self._difficulty_level])
+            player1 = ReportingPlayer('T-800', oracle=_levels[self._difficulty_level])
             player2 = HumanPlayer(name=input('Enter your name, puny human: '))
 
         # creamos la partida
