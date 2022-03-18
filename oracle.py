@@ -69,6 +69,14 @@ class BaseOracle():
                 break
         return result
 
+    # métodos que han de ser sobre-escritos por mis subclases
+    def update_to_bad(self, move):
+        pass
+
+    def backtrack(self, list_of_moves):
+        pass
+    
+
 
 class SmartOracle(BaseOracle):
     def _get_column_recommendation(self, board, index, player):

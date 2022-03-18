@@ -56,11 +56,20 @@ class Game():
             # imprimo el tablero
             self._display_board()
             # si el juego ha terminado,
-            if self._is_game_over():
+            if self._has_winner_or_tie():
                 # muestro el resultado final
                 self._display_result()
-                # salgo del bucle
-                break
+                
+                if self.match.is_match_over():
+                    # se acabó
+                    break
+                else:
+                    # reseteamos el board
+                    self.board = SquareBoard()
+                    self._display_board()
+            
+
+                
 
     def _display_result(self):
         winner = self.match.get_winner(self.board)
@@ -70,7 +79,7 @@ class Game():
             print(
                 f'\nA tie between {self.match.get_player("x")} (x) and {self.match.get_player("o")} (o)!')
 
-    def _is_game_over(self):
+    def _has_winner_or_tie(self):
         """
         Game is over if there's a winner or there's a tie
         """

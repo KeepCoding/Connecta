@@ -3,6 +3,8 @@ from oracle import BaseOracle, ColumnClassification, ColumnRecommendation
 import random
 from list_utils import all_same
 from move import Move
+from settings import DEBUG, BOARD_LENGTH
+from beautifultable import BeautifulTable
 
 class Player():
     """
@@ -38,6 +40,20 @@ class Player():
         # juego en la mejor
         self._play_on(board, best.index, recommendations)
 
+        
+
+        
+    def display_recommendations(self, board):
+        recs = map(lambda x: str(x.classification).split('.')[
+                   1].lower(), self._oracle.get_recommendation(board, self))
+
+        bt = BeautifulTable()
+        bt.rows.append(recs)
+
+        bt.columns.header = [str(i) for i in range(BOARD_LENGTH)]
+
+        print(bt)
+
     def on_win(self):
         pass
 
@@ -46,10 +62,15 @@ class Player():
 
 
     def _play_on(self, board, position, recommendations):
+        # imprimo recs en caso de debug
+        if DEBUG:
+            self.display_recommendations(board)
+            
         # juega en la pos
         board.add(self.char, position)
         # guarda la última jugada (siempre al principio de la lista)
         self.last_moves.insert(0, Move(position, board.as_code(), recommendations, self))
+        
         
 
     def _ask_oracle(self, board):
@@ -88,6 +109,7 @@ class HumanPlayer(Player):
         """
         Le pido al humano que es mi oráculo
         """
+
         while True:
             # pedimos columna al humano
             raw = input('Select a column, puny human: ')
