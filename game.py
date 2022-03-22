@@ -77,7 +77,7 @@ class Game():
             print(f'\n{winner.name} ({winner.char}) wins!!!')
         else:
             print(
-                f'\nA tie between {self.match.get_player("x")} (x) and {self.match.get_player("o")} (o)!')
+                f'\nA tie between {self.match.get_player("x").name} (x) and {self.match.get_player("o").name} (o)!')
 
     def _has_winner_or_tie(self):
         """
