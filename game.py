@@ -59,7 +59,7 @@ class Game():
             if self._has_winner_or_tie():
                 # muestro el resultado final
                 self._display_result()
-                
+
                 if self.match.is_match_over():
                     # se acabó
                     break
@@ -67,9 +67,6 @@ class Game():
                     # reseteamos el board
                     self.board = SquareBoard()
                     self._display_board()
-            
-
-                
 
     def _display_result(self):
         winner = self.match.get_winner(self.board)
@@ -158,8 +155,12 @@ class Game():
         Player1 siempre será el ordeñador
         """
         _levels = {DifficultyLevel.LOW: BaseOracle(),
-                   DifficultyLevel.MEDIUM: SmartOracle(), 
+                   DifficultyLevel.MEDIUM: SmartOracle(),
                    DifficultyLevel.HIGH: LearningOracle()}
+
+        _names = {DifficultyLevel.LOW: 'Bender',
+                  DifficultyLevel.MEDIUM: 'T-800',
+                  DifficultyLevel.HIGH: 'T-1000'}
 
         if self.round_type == RoundType.COMPUTER_VS_COMPUTER:
             # ambos jugadores robóticos
@@ -167,7 +168,8 @@ class Game():
             player2 = ReportingPlayer('T-1000', oracle=LearningOracle())
         else:
             # humano contro ordenador
-            player1 = ReportingPlayer('T-800', oracle=_levels[self._difficulty_level])
+            player1 = ReportingPlayer(
+                name=_names[self._difficulty_level], oracle=_levels[self._difficulty_level])
             player2 = HumanPlayer(name=input('Enter your name, puny human: '))
 
         # creamos la partida
