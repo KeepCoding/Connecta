@@ -1,14 +1,16 @@
 
 from enum import Enum, auto
 from copy import deepcopy
+from syslog import LOG_USER
 from settings import BOARD_LENGTH
 from square_board import SquareBoard
 
 
 class ColumnClassification(Enum):
     FULL = -1        # imposible
-    BAD = 1         # Muy indeseable
-    MAYBE = 10        # indeseable
+    LOSE =  1        # imminent defeat
+    BAD = 5         # Muy indeseable
+    MAYBE = 10      # indeseable
     WIN = 100       # La mejor opción: gano por narices
 
 
@@ -75,7 +77,6 @@ class BaseOracle():
 
     def backtrack(self, list_of_moves):
         pass
-    
 
 
 class SmartOracle(BaseOracle):
@@ -89,7 +90,7 @@ class SmartOracle(BaseOracle):
             if self._is_winning_move(board, index, player):
                 recommendation.classification = ColumnClassification.WIN
             elif self._is_losing_move(board, index, player):
-                recommendation.classification = ColumnClassification.BAD
+                recommendation.classification = ColumnClassification.LOSE
 
         return recommendation
 
@@ -98,9 +99,11 @@ class SmartOracle(BaseOracle):
         Si player juega en index, ¿genera una jugada vencedora para el 
         oponente el alguna de las demás columnas?
         """
+        tmp = self._play_on_tmp_board(board,index,player)
+
         will_lose = False
         for i in range(0, BOARD_LENGTH):
-            if self._is_winning_move(board, i, player.opponent):
+            if self._is_winning_move(tmp, i, player.opponent):
                 will_lose = True
                 break
         return will_lose
@@ -170,7 +173,6 @@ class LearningOracle(MemoizingOracle):
         # sustituirla
         self._past_recommendations[key] = recommendation
 
-
     def backtrack(self, list_of_moves):
         """
         Repasa todos las jugadas y si encuentra una en la cual todo 
@@ -191,5 +193,4 @@ class LearningOracle(MemoizingOracle):
                 # si no todo estaba perdido, salgo. Sino, sigo
                 break
 
-        
         print(f'Size of knowledgebase: {len(self._past_recommendations)}')
