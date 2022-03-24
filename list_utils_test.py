@@ -1,6 +1,6 @@
 import pytest
 
-from list_utils import *
+from list_utils import find_one, find_n, find_streak, first_elements, transpose, displace, all_same, reverse_list, collapse_list, collapse_matrix, replace_all_in_list, replace_all_in_matrix, reverse_matrix
 from oracle import ColumnRecommendation, ColumnClassification
 
 
@@ -127,7 +127,7 @@ def test_collapse_matrix():
 
 def test_replace_all_in_list():
     assert replace_all_in_list([None, 3, '546', 33, None], None, '#') == [
-                               '#', 3, '546', 33, '#']
+        '#', 3, '546', 33, '#']
     assert replace_all_in_list([1, 2, 3, 4, 5], 'e', 42) == [1, 2, 3, 4, 5]
     assert replace_all_in_list([], 34, 43) == []
 

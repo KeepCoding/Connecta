@@ -19,7 +19,7 @@ class LinearBoard():
         """
         Una lista de None
         """
-        self._column = [None for i in range(BOARD_LENGTH)]
+        self._column = [None for _ in range(BOARD_LENGTH)]
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
