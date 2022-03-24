@@ -145,7 +145,7 @@ class Game():
             elif response == '2':
                 level = DifficultyLevel.MEDIUM
                 break
-            else:
+            elif response == '3':
                 level = DifficultyLevel.HIGH
                 break
         return level
