@@ -11,9 +11,9 @@ class Match:
 
     @property 
     def next_player(self):
-        next = self._round_robbin[0]
+        next_one = self._round_robbin[0]
         self._round_robbin.reverse()
-        return next
+        return next_one
     
     def get_player(self, char):
         return self._players[char]
